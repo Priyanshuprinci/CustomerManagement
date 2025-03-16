@@ -1,8 +1,8 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import connectDB from "./config/db.js";
-import customerRoutes from "./routes/customerRoutes.js";
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const customerRoutes = require('./routes/customerRoutes');
 
 dotenv.config();
 connectDB();
@@ -16,4 +16,12 @@ app.use("/api", customerRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const server = app.listen(PORT, () =>
+  console.log(`🚀 Server running on port ${PORT}`)
+);
+
+// Handle server errors (e.g., port in use)
+server.on('error', (err) => {
+  console.error(`❌ Server error: ${err.message}`);
+  process.exit(1);
+});

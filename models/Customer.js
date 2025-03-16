@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose=require('mongoose');
 
 const customerSchema = new mongoose.Schema(
   {
@@ -17,4 +17,4 @@ customerSchema.index({ email: 1, mobile_number: 1 });
 
 const Customer = mongoose.model("Customer", customerSchema);
 
-export default Customer;
+module.exports=Customer;

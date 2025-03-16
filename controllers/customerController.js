@@ -1,6 +1,7 @@
-import Customer from "../models/Customer.js";
+const Customer = require('../models/Customer');
 
-export const getCustomers = async (req, res) => {
+
+const getCustomers = async (req, res) => {
   try {
     const { page = 1, limit = 10, search, filterField, filterValue } = req.query;
 
@@ -18,6 +19,7 @@ export const getCustomers = async (req, res) => {
     }
 
     const customers = await Customer.find(query)
+      .sort({ s_no: 1 })
       .skip((page - 1) * limit)
       .limit(parseInt(limit));
 
@@ -28,3 +30,4 @@ export const getCustomers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+module.exports={getCustomers};
